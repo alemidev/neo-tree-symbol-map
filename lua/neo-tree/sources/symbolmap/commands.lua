@@ -1,4 +1,5 @@
 local cc = require("neo-tree.sources.common.commands")
+local manager = require("neo-tree.sources.manager")
 local vim = vim
 
 local M = {}
@@ -69,13 +70,13 @@ local function find_last_buffer()
 			return buf
 		end
 	end
-	return nil
+	return 0
 end
 
 M.add = function(state)
 	vim.ui.input({ prompt = "query" }, function(input)
 		local buf = find_last_buffer()
-		local _ = vim.lsp.buf_request(buf, 'workspace/symbol', { query = input }, function(err, data, _, _)
+		vim.lsp.buf_request(buf, 'workspace/symbol', { query = input }, function(err, data, _, _)
 			local root = {
 				id = "root",
 				name = "no workspace symbols loaded",
@@ -87,7 +88,7 @@ M.add = function(state)
 				root = parse_tree(map, 'root', 'workspace symbols')
 			end
 			state.symboltree = { root }
-			require("neo-tree.sources.manager").refresh("symbolmap")
+			manager.refresh("symbolmap")
 		end)
 		state.symboltree = { {
 			id = "root",
@@ -95,6 +96,7 @@ M.add = function(state)
 			type = "directory",
 			children = {}
 		} }
+		manager.refresh("symbolmap")
 	end)
 end
 
