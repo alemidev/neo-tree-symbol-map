@@ -20,9 +20,8 @@ M.navigate = function(state, path)
 	if state.symboltree == nil then
 		state.symboltree = { {
 			id = "root",
-			name = "press 'a' to start querying for symbols",
-			type = "file",
-			extra = { kind = vim.lsp.protocol.SymbolKind.Event },
+			name = "use 'a' to query symbols",
+			type = "directory",
 			children = {}
 		} }
 	end

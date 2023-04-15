@@ -79,9 +79,8 @@ M.add = function(state)
 		vim.lsp.buf_request(buf, 'workspace/symbol', { query = input }, function(err, data, _, _)
 			local root = {
 				id = "root",
-				name = "no workspace symbols loaded",
-				type = "file",
-				extra = { kind = vim.lsp.protocol.SymbolKind.Event },
+				name = "workspace symbols",
+				type = "directory",
 				children = {}
 			}
 			if data ~= nil then
@@ -93,9 +92,8 @@ M.add = function(state)
 		end)
 		state.symboltree = { {
 			id = "root",
-			name = "reloading workspace symbols",
-			type = "file",
-			extra = { kind = vim.lsp.protocol.SymbolKind.Event },
+			name = "reloading symbols ...",
+			type = "directory",
 			children = {}
 		} }
 		manager.refresh("symbolmap")
