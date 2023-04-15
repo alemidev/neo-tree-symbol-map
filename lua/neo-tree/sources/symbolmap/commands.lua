@@ -80,7 +80,8 @@ M.add = function(state)
 			local root = {
 				id = "root",
 				name = "no workspace symbols loaded",
-				type = "directory",
+				type = "file",
+				extra = { kind = vim.lsp.protocol.SymbolKind.Event },
 				children = {}
 			}
 			if data ~= nil then
@@ -93,7 +94,8 @@ M.add = function(state)
 		state.symboltree = { {
 			id = "root",
 			name = "reloading workspace symbols",
-			type = "directory",
+			type = "file",
+			extra = { kind = vim.lsp.protocol.SymbolKind.Event },
 			children = {}
 		} }
 		manager.refresh("symbolmap")
